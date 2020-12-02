@@ -7,6 +7,8 @@ import org.apache.commons.cli.Option
 import org.apache.commons.cli.Options
 import kotlin.system.exitProcess
 
+private const val VERSION = "1.0.0"
+
 fun main(args: Array<String>) {
     val options = Options()
 
@@ -30,6 +32,10 @@ fun main(args: Array<String>) {
     helpOption.isRequired = false
     options.addOption(helpOption)
 
+    val versionOption = Option("v", "version", false, "Shows current program version")
+    versionOption.isRequired = false
+    options.addOption(versionOption)
+
     val parser = DefaultParser()
     val formatter = HelpFormatter()
 
@@ -38,6 +44,10 @@ fun main(args: Array<String>) {
     } catch (e: Exception) {
         formatter.printHelp("Token generator", options)
         exitProcess(-1)
+    }
+
+    if (cmd.hasOption("version")) {
+        println("Token generator version $VERSION")
     }
 
     if (cmd.hasOption("help")) {
